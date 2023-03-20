@@ -14,7 +14,6 @@ def register(request):
 
         # Validate passwords
         if password == password2:
-            pass
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists')
                 return redirect('register')
@@ -29,19 +28,27 @@ def register(request):
                     auth.login(request, user)
                     messages.success(request, 'You are now logged in')
                     return redirect('index')
-
         else:
             messages.error(request, 'Passwords do not match')
             return redirect('register')
-        
-        return redirect('register') 
     else:
         return render(request, 'accounts/register.html')
 
 def login(request):
     if request.method == "POST":
-        #Register user
-        pass
+       username= request.POST['username']
+       password= request.POST['password']
+
+       user = auth.authenticate(username=username, password=password)
+
+       if user is not None: #f ound in the db 
+        auth.login(request, user)
+        messages.success(request, 'Your are now Logged In')
+        return redirect('dashboard')
+       else:
+        messages.error(request, 'Invalid credentials')
+        return redirect('login')
+        
     else:
         return render(request, 'accounts/login.html')
 
