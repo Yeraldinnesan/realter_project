@@ -80,15 +80,7 @@ WSGI_APPLICATION = 'realter.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'realter',
-        'USER': 'postgres',
-        'PASSWORD': 'admin123',
-        'HOST': 'localhost'
-    }
-}
+
 
 
 
